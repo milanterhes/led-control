@@ -12,18 +12,14 @@ class App extends Component {
 
     this.state = { status: true};
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
     this.socket = io('http://192.168.0.24:8000');
     this.socket.on('connect', () => {
       this.socket.on('message', message => {
         this.setState({ status: message });
-        console.log('initializing status with: ', message);
+        console.log('setting status to: ', message);
       });
      });
   }
-
   handleClick() {
     this.setState({ status: !this.state.status });
     this.socket.emit('statusChange', !this.state.status);

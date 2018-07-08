@@ -12,6 +12,8 @@ raspi.init(() => {
       client.on('statusChange', newStatus => {
         newStatus ? statusLed.write(rLed.ON) : statusLed.write(rLed.OFF)
         console.log('new status: ', statusLed.read() == rLed.ON ? true : false)
+        io.sockets.send(statusLed.read() == rLed.ON ? true : false);
+        console.log('sending to clients new status: ', statusLed.read() == rLed.ON ? true : false)
       })
   })
 })
