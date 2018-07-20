@@ -7,10 +7,10 @@ class Controller extends Component {
     
   constructor() {
     super();
+
     this.state = {
       connected: false
     }
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
@@ -28,7 +28,7 @@ class Controller extends Component {
      });
   }
 
-  handleClick() {
+  handleClick = () => {
     if(this.state.connected){
       this.setState({ status: !this.state.status });
       this.socket.emit('statusChange', !this.state.status);
