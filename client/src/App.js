@@ -14,7 +14,7 @@ class App extends Component {
           <h1 className="App-title">Socket IO test</h1>
         </header>
 
-        <Controller />
+        <Controller ip="192.168.0.24:8000" />
 
       </div>
     );

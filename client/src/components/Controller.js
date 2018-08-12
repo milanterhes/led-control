@@ -5,8 +5,8 @@ import io from 'socket.io-client'
 
 class Controller extends Component {
     
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       connected: false
@@ -14,7 +14,8 @@ class Controller extends Component {
   }
 
   componentDidMount(){
-    this.socket = io('http://192.168.0.24:8000');
+    this.socket = io("http://" + this.props.ip);
+    console.log(this.props.ip);
     this.socket.on('connect', () => {
       this.setState({connected: true})
       this.socket.on('message', message => {
@@ -28,7 +29,7 @@ class Controller extends Component {
      });
   }
 
-  handleClick = () => {
+  handleStatusChange = () => {
     if(this.state.connected){
       this.setState({ status: !this.state.status });
       this.socket.emit('statusChange', !this.state.status);
@@ -37,17 +38,11 @@ class Controller extends Component {
 
   render() {
     return (
-      <div className="App">
-
-       
-
         <p className="App-intro">
-          <Button variant="raised" color="primary" onClick={this.handleClick}>
+          <Button variant="raised" color="primary" onClick={this.handleStatusChange}>
             {this.state.connected ? this.state.status  ? "ON" : "OFF" : "Connecting..."}
           </Button>
         </p>
-        
-      </div>
     );
   }
 }
